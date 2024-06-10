@@ -8,8 +8,8 @@ To run the Lua tests you can run the following from the root directory:
 make lua-test
 ```
 
-This command makes use of docker hence does not need any dependency
-installations besides docker
+This command makes use of Docker and hence does not need any dependency
+installations besides Docker
 
 ## Where are the Lua Tests?
 
