@@ -6,7 +6,7 @@ Do not move it without providing redirects.
 -----------------------------------------------
 -->
 
-# The ingress-nginx kubectl plugin
+# The `ingress-nginx` kubectl plugin
 
 ## Installation
 
@@ -67,7 +67,7 @@ Use "ingress-nginx [command] --help" for more information about a command.
 
 ## Common Flags
 
-- Every subcommand supports the basic `kubectl` configuration flags like `--namespace`, `--context`, `--client-key` and so on.
+- Every subcommand supports the basic `kubectl` configuration flags like `--namespace`, `--context`, `--client-key`, and so on.
 - Subcommands that act on a particular `ingress-nginx` pod (`backends`, `certs`, `conf`, `exec`, `general`, `logs`, `ssh`), support the `--deployment <deployment>`, `--pod <pod>`, and `--container <container>` flags to select either a pod from a deployment with the given name, or a pod with the given name (and the given container name). The `--deployment` flag defaults to `ingress-nginx-controller`, and the `--container` flag defaults to `controller`.
 - Subcommands that inspect resources (`ingresses`, `lint`) support the `--all-namespaces` flag, which causes them to inspect resources in every namespace.
 
@@ -75,9 +75,9 @@ Use "ingress-nginx [command] --help" for more information about a command.
 
 Note that `backends`, `general`, `certs`, and `conf` require `ingress-nginx` version `0.23.0` or higher.
 
-### backends
+### `backends`
 
-Run `kubectl ingress-nginx backends` to get a JSON array of the backends that an ingress-nginx controller currently knows about:
+Run `kubectl ingress-nginx backends` to get a JSON array of the backends that an `ingress-nginx` controller currently knows about:
 
 ```console
 $ kubectl ingress-nginx backends -n ingress-nginx
@@ -143,11 +143,12 @@ $ kubectl ingress-nginx backends -n ingress-nginx
 ]
 ```
 
-Add the `--list` option to show only the backend names. Add the `--backend <backend>` option to show only the backend with the given name.
+Add the `--list` option to show only the backend names.
+Add the `--backend <backend>` option to show only the backend with the given name.
 
-### certs
+### `certs`
 
-Use `kubectl ingress-nginx certs --host <hostname>` to dump the SSL cert/key information for a given host.
+Use `kubectl ingress-nginx certs --host <hostname>` to dump SSL cert/key information for a given host.
 
 **WARNING:** This command will dump sensitive private key information. Don't blindly share the output, and certainly don't log it anywhere.
 
@@ -165,7 +166,7 @@ $ kubectl ingress-nginx certs -n ingress-nginx --host testaddr.local
 -----END RSA PRIVATE KEY-----
 ```
 
-### conf
+### `conf`
 
 Use `kubectl ingress-nginx conf` to dump the generated `nginx.conf` file. Add the `--host <hostname>` option to view only the server block for that host:
 
@@ -194,7 +195,7 @@ kubectl ingress-nginx conf -n ingress-nginx --host testaddr.local
 ...
 ```
 
-### exec
+### `exec`
 
 `kubectl ingress-nginx exec` is exactly the same as `kubectl exec`, with the same command flags. It will automatically choose an `ingress-nginx` pod to run the command in.
 
@@ -213,7 +214,7 @@ owasp-modsecurity-crs
 template
 ```
 
-### info
+### `info`
 
 Shows the internal and external IP/CNAMES for an `ingress-nginx` service.
 
@@ -225,7 +226,7 @@ LoadBalancer IP|CNAME: 35.123.123.123
 
 Use the `--service <service>` flag if your `ingress-nginx` `LoadBalancer` service is not named `ingress-nginx`.
 
-### ingresses
+### `ingresses`
 
 `kubectl ingress-nginx ingresses`, alternately `kubectl ingress-nginx ing`, shows a more detailed view of the ingress definitions in a namespace.
 
@@ -249,7 +250,7 @@ default     example-ingress1   testaddr2.local/otherotherpath   localhost   NO  
 default     test-ingress-2     *                                localhost   NO    echo-service    8080           2
 ```
 
-### lint
+### `lint`
 
 `kubectl ingress-nginx lint` can check a namespace or entire cluster for potential configuration issues. This command is especially useful when upgrading between `ingress-nginx` versions.
 
@@ -292,7 +293,7 @@ Checking deployments...
       https://github.com/kubernetes/ingress-nginx/issues/3808
 ```
 
-### logs
+### `logs`
 
 `kubectl ingress-nginx logs` is almost the same as `kubectl logs`, with fewer flags. It will automatically choose an `ingress-nginx` pod to read logs from.
 
@@ -315,7 +316,7 @@ I0405 16:53:46.193913       7 event.go:209] Event(v1.ObjectReference{Kind:"Confi
 ...
 ```
 
-### ssh
+### `ssh`
 
 `kubectl ingress-nginx ssh` is exactly the same as `kubectl ingress-nginx exec -it -- /bin/bash`. Use it when you want to quickly be dropped into a shell inside a running `ingress-nginx` container.
 
