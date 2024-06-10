@@ -1,7 +1,7 @@
 
 # FAQ
 
-## How can I easily install multiple instances of the ingress-nginx controller in the same cluster?
+## How can I easily install multiple instances of the `ingress-nginx` controller in the same cluster?
 
 You can install them in different namespaces.
 
@@ -11,22 +11,22 @@ You can install them in different namespaces.
   kubectl create namespace ingress-nginx-2
   ```
 
-- Use Helm to install the additional instance of the ingress controller
+- Use Helm to install the additional instance of the Ingress Controller
 - Ensure you have Helm working (refer to the [Helm documentation](https://helm.sh/docs/))
-- We have to assume that you have the helm repo for the ingress-nginx controller already added to your Helm config.
-  But, if you have not added the helm repo then you can do this to add the repo to your helm config;
+- We have to assume that you have the Helm repo for the `ingress-nginx` controller already added to your Helm config.
+  But, if you have not added the Helm repo, then you can do this to so:
 
   ```
   helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
   ```
 
-- Make sure you have updated the helm repo data;
+- Make sure you have updated the Helm repo data;
 
   ```
   helm repo update
   ```
 
-- Now, install an additional instance of the ingress-nginx controller like this:
+- Now, install an additional instance of the `ingress-nginx` controller like this:
 
   ```
   helm install ingress-nginx-2 ingress-nginx/ingress-nginx  \
@@ -42,11 +42,11 @@ If you need to install yet another instance, then repeat the procedure to create
 change the values such as names & namespaces (for example from "-2" to "-3"), or anything else that meets your needs.
 
 Note that `controller.ingressClassResource.name` and `controller.ingressClass` have to be set correctly.
-The first is to create the IngressClass object and the other is to modify the deployment of the actual ingress controller pod.
+The first is to create the IngressClass object and the other is to modify the deployment of the actual Ingress Controller pod.
 
 ### I can't use multiple namespaces, what should I do?
 
-If you need to install all instances in the same namespace, then you need to specify a different **election id**, like this:
+If you need to install all instances in the same namespace, then you need to specify a different **electionID**, like this:
 
 ```
 helm install ingress-nginx-2 ingress-nginx/ingress-nginx  \
@@ -59,9 +59,9 @@ helm install ingress-nginx-2 ingress-nginx/ingress-nginx  \
 --set controller.ingressClassByName=true
 ```
 
-## Retaining Client IPAddress
+## Retaining Client `IPAddress`
 
-Please read [Retain Client IPAddress Guide here](./user-guide/retaining-client-ipaddress.md).
+Please read [Retain Client `IPAddress` Guide here](./user-guide/retaining-client-ipaddress.md).
 
 ## Kubernetes v1.22 Migration
 
@@ -80,35 +80,35 @@ default on the next breaking change release, set for 2.0.0.
 
 - When "`ingress.spec.rules.http.pathType=Exact`" or "`pathType=Prefix`", this
 validation will limit the characters accepted on the field "`ingress.spec.rules.http.paths.path`",
-to "`alphanumeric characters`", and  `"/," "_," "-."` Also, in this case,
-the path should start with `"/."`
+to "`alphanumeric characters`", and `/`, `_`, `-`. Also, in this case,
+the path should start with `/`.
 
 - When the ingress resource path contains other characters (like on rewrite
 configurations), the pathType value should be "`ImplementationSpecific`".
 
-- API Spec on pathType is documented [here](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types)
+- API Spec on `pathType` is documented [here](https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types)
 
 - When this option is enabled, the validation will happen on the Admission
-Webhook. So if any new ingress object contains characters other than
-alphanumeric characters, and, `"/,","_","-"`, in the `path` field, but
-is not using `pathType` value as `ImplementationSpecific`, then the ingress
+Webhook. So if any new Ingress object contains characters other than
+alphanumeric characters, and, `/`, `_`, `-`, in the `path` field, but
+is not using `pathType` value as `ImplementationSpecific`, then the Ingress
 object will be denied admission.
 
 - The cluster admin should establish validation rules using mechanisms like
-"`Open Policy Agent`", to validate that only authorized users can use
-ImplementationSpecific pathType and that only the authorized characters can be
-used. [The configmap value is here](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#strict-validate-path-type)
+**Open Policy Agent**, to validate that only authorized users can use
+`ImplementationSpecific` `pathType`, and that only the authorized characters can be
+used. [The ConfigMap value is here](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/configmap/#strict-validate-path-type)
 
-- A complete example of an Openpolicyagent gatekeeper rule is available [here](https://kubernetes.github.io/ingress-nginx/examples/openpolicyagent/)
+- A complete example of an Open Policy Agent Gatekeeper rule is available [here](https://kubernetes.github.io/ingress-nginx/examples/openpolicyagent/)
 
 - If you have any issues or concerns, please do one of the following:
   - Open a GitHub issue
   - Comment in our Dev Slack Channel
   - Open a thread in our Google Group <ingress-nginx-dev@kubernetes.io>
 
-## Why is chunking not working since controller v1.10 ?
+## Why is chunking not working since controller v1.10?
 
-- If your code is setting the HTTP header `"Transfer-Encoding: chunked"` and
+- If your code is setting the HTTP header `Transfer-Encoding: chunked` and
 the controller log messages show an error about duplicate header, it is
 because of this change <http://hg.nginx.org/nginx/rev/2bf7792c262e>
 
