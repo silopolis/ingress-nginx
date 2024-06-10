@@ -176,12 +176,11 @@ Verify with the following commands:
 $ kubectl run -it --rm test --image=curlimages/curl --restart=Never -- /bin/sh
 
 # check if the secret exists
-/ $ ls /var/run/secrets/kubernetes.io/serviceaccount/
+$ ls /var/run/secrets/kubernetes.io/serviceaccount/
 ca.crt     namespace  token
-/ $
 
 # check base connectivity from inside the cluster
-/ $ curl -k https://kubernetes.default.svc.cluster.local
+$ curl -k https://kubernetes.default.svc.cluster.local
 {
   "kind": "Status",
   "apiVersion": "v1",
@@ -195,11 +194,13 @@ ca.crt     namespace  token
 
   },
   "code": 403
-}/ $
+}
 
 # connect using tokens
-}/ $ curl --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt -H  "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" https://kubernetes.default.svc.cluster.local
-&& echo
+$ curl --cacert /var/run/secrets/kubernetes.io/serviceaccount/ca.crt \
+    -H  "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)" \
+    https://kubernetes.default.svc.cluster.local \
+    && echo
 {
   "paths": [
     "/api",
@@ -211,7 +212,6 @@ ca.crt     namespace  token
     "/version"
   ]
 }
-/ $
 
 # when you type `exit` or `^D` the test pod will be deleted.
 ```
@@ -487,8 +487,9 @@ $ apk add libcap
 (1/1) Installing libcap (2.50-r0)
 Executing busybox-1.33.1-r7.trigger
 OK: 26 MiB in 41 packages
-$ getcap /nginx-ingress-controller
-/nginx-ingress-controller cap_net_bind_service=ep
+
+$ getcap nginx-ingress-controller
+nginx-ingress-controller cap_net_bind_service=ep
 ```
 
 (if missing, see above about purging image on the server and re-pulling)
@@ -500,8 +501,9 @@ $ apk add strace
 (1/1) Installing strace (5.12-r0)
 Executing busybox-1.33.1-r7.trigger
 OK: 28 MiB in 42 packages
-$ strace /nginx-ingress-controller
-execve("/nginx-ingress-controller", ["/nginx-ingress-controller"], 0x7ffeb9eb3240 /* 131 vars */) = 0
+
+$ strace nginx-ingress-controller
+execve("nginx-ingress-controller", ["nginx-ingress-controller"], 0x7ffeb9eb3240 /* 131 vars */) = 0
 arch_prctl(ARCH_SET_FS, 0x29ea690)      = 0
 ...
 ```
